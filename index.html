@@ -72,9 +72,9 @@
 
 			var snipped;
 
-			if ((table === "") || (column === "") || (what === "") || (rwith === "")) {
+			if ((table === "") || (column === "") || (what === "") ) {
 
-				snipped = "¯\\_(ツ)_/¯ \n\nSorry, no snipped.\nDit you really fill out all fields?";
+				snipped = "¯\\_(ツ)_/¯ \n\nSorry, no snipped.\nDit you really fill out the required fields?";
 
 				document.getElementById("snipped").style.display = "block";
 				document.getElementById("snipped").style.color = "red";
@@ -114,17 +114,17 @@ WHERE [Column] LIKE '%[What to replace]%'
 
 	<h2>How?</h2>
 
-	<p>Please fill out all fields first and then click the <i>submit</i> button!
+	<p>Please fill out the fields and then click the <i>submit</i> button!
 	</p>
 
 	<form class="form">
-		<label for="table" class="label">Table:</label>
+		<label for="table" class="label">Table: (required)</label>
 		<input type="text" name="table" id="table" class="input">
 
-		<label for="column" class="label">Column: </label>
+		<label for="column" class="label">Column: (required)</label>
 		<input type="text" name="column" id="column" class="input">
 
-		<label for="what" class="label">What to replace:</label>
+		<label for="what" class="label">What to replace: (required)</label>
 		<input type="text" name="what" id="what" class="input">
 
 		<label for="with" class="label">Replace with:</label>
