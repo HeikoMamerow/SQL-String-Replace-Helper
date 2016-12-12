@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>SQL Replace Helper</title>
+	<style>
+		body {
+			color: #222;
+			font-family: sans-serif;
+		}
+
+		.wrapper {
+			max-width: 610px;
+			margin: 2em auto;
+		}
+
+		h1 {
+			border-bottom: 1px solid #666;
+			padding-bottom: .5em;
+		}
+
+		h2 {
+			margin-top: 1em;
+		}
+
+		.pre,
+		.output {
+			border: 1px solid #666;
+			overflow: auto;
+			padding: 1em;
+		}
+
+		.form {
+			margin-top: 2em;
+		}
+
+		.label,
+		.input,
+		.button {
+			display: block;
+		}
+
+		.input {
+			border: 1px solid #666;
+			margin-bottom: 1em;
+		}
+
+		.button {
+			border: 1px solid #666;
+			margin-bottom: 2em;
+		}
+
+		.result {
+			display: none;
+		}
+
+		.label-output {
+			display: none;
+		}
+
+		.output {
+			font-family: monospace;
+			display: none;
+			white-space: pre;
+		}
+	</style>
+	<script>
+		function sql_replace_helper() {
+			var table = document.getElementById("table").value;
+			var column = document.getElementById("column").value;
+			var what = document.getElementById("what").value;
+			var rwith = document.getElementById("with").value;
+
+			var snipped;
+
+			if ((table === "") || (column === "") || (what === "") || (rwith === "")) {
+
+				snipped = "¯\\_(ツ)_/¯ \n\nSorry, no snipped.\nDit you really fill out all fields?";
+
+				document.getElementById("snipped").style.display = "block";
+				document.getElementById("snipped").style.color = "red";
+
+			} else {
+
+				snipped = "UPDATE " + table + "\n";
+				snipped += "SET " + column + " = REPLACE(" + column + ", '" + what + "', '" + rwith + "')\n";
+				snipped += "WHERE " + column + " LIKE '%" + what + "%'";
+
+				document.getElementById("result").style.display = "block";
+				document.getElementById("snipped").style.display = "block";
+				document.getElementById("snipped").style.color = "blue";
+			}
+
+			document.getElementById("snipped").value = snipped;
+		}
+
+		window.onload = function () {
+			document.getElementById("button").onclick = sql_replace_helper;
+		};
+	</script>
+</head>
+<body>
+<div class="wrapper">
+	<h1>SQL Replace Helper</h1>
+
+	<h2>What?</h2>
+
+	<p>Generate SQL command to replace a string in your database like this:</p>
+
+	<pre class="pre">
+UPDATE [Table]
+SET [Column] = REPLACE([Column], '[What to replace]', '[Replace with]')
+WHERE [Column] LIKE '%[What to replace]%'
+</pre>
+
+	<h2>How?</h2>
+
+	<p>Please fill out all fields first and then click the <i>submit</i> button!
+	</p>
+
+	<form class="form">
+		<label for="table" class="label">Table:</label>
+		<input type="text" name="table" id="table" class="input">
+
+		<label for="column" class="label">Column: </label>
+		<input type="text" name="column" id="column" class="input">
+
+		<label for="what" class="label">What to replace:</label>
+		<input type="text" name="what" id="what" class="input">
+
+		<label for="with" class="label">Replace with:</label>
+		<input type="text" name="with" id="with" class="input">
+
+		<button type="button" id="button" class="button">Submit</button>
+
+		<h2 id="result" class="result">Here!</h2>
+		<label for="snipped" id="label-output" class="label label-output">Your
+			SQL command
+			snipped:</label>
+		<output id="snipped" class="output"></output>
+	</form>
+</div>
+</body>
+</html>
