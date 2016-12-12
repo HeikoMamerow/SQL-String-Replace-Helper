@@ -3,7 +3,7 @@
 ## What?
 Generate SQL command to replace a string in your database like this:
 
-```javascript
+```sql
 UPDATE [Table]
 SET [Column] = REPLACE([Column], '[What to replace]', '[Replace with]')
 WHERE [Column] LIKE '%[What to replace]%'
