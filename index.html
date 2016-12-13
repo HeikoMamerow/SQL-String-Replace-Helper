@@ -1,11 +1,16 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>SQL Replace Helper</title>
 	<style>
 		body {
 			color: #222;
 			font-family: sans-serif;
+			font-size: 1em;
+			line-height: 1.5;
+			letter-spacing: .02em;
 		}
 
 		.wrapper {
@@ -29,7 +34,8 @@
 			padding: 1em;
 		}
 
-		.form {
+		.form,
+		.credits {
 			margin-top: 2em;
 		}
 
@@ -39,28 +45,47 @@
 			display: block;
 		}
 
-		.input {
+		.required,
+		.credits,
+		.credits-link {
+			color: #aaa;
+		}
+
+		.input,
+		.button {
 			border: 1px solid #666;
+			font-size: 1em;
+			padding: .2em .4em;
+		}
+
+		.input,
+		.output {
 			margin-bottom: 1em;
 		}
 
 		.button {
-			border: 1px solid #666;
 			margin-bottom: 2em;
 		}
 
-		.result {
-			display: none;
+		.button::-moz-focus-inner {
+			border: 0;
 		}
 
-		.label-output {
+		.result,
+		.label-output,
+		.output,
+		.copy,
+		.credits {
 			display: none;
 		}
 
 		.output {
 			font-family: monospace;
-			display: none;
 			white-space: pre;
+		}
+
+		.credits {
+			text-align: center;
 		}
 	</style>
 	<script>
@@ -72,12 +97,16 @@
 
 			var snipped;
 
-			if ((table === "") || (column === "") || (what === "") ) {
+			if ((table === "") || (column === "") || (what === "")) {
 
 				snipped = "¯\\_(ツ)_/¯ \n\nSorry, no snipped.\nDit you really fill out the required fields?";
 
+				document.getElementById("result").style.display = "none";
+				document.getElementById("label-output").style.display = "none";
 				document.getElementById("snipped").style.display = "block";
 				document.getElementById("snipped").style.color = "red";
+				document.getElementById("copy").style.display = "none";
+				document.getElementById("credits").style.display = "none";
 
 			} else {
 
@@ -86,11 +115,15 @@
 				snipped += "WHERE " + column + " LIKE '%" + what + "%'";
 
 				document.getElementById("result").style.display = "block";
+				document.getElementById("label-output").style.display = "block";
 				document.getElementById("snipped").style.display = "block";
 				document.getElementById("snipped").style.color = "blue";
+				document.getElementById("copy").style.display = "block";
+				document.getElementById("credits").style.display = "block";
 			}
 
 			document.getElementById("snipped").value = snipped;
+			window.scrollTo(0, document.body.scrollHeight);
 		}
 
 		window.onload = function () {
@@ -114,30 +147,47 @@ WHERE [Column] LIKE '%[What to replace]%'
 
 	<h2>How?</h2>
 
-	<p>Please fill out the fields and then click the <i>submit</i> button!
-	</p>
+	<p>Please fill out the fields and then click the <i>submit</i> button!</p>
 
 	<form class="form">
-		<label for="table" class="label">Table: (required)</label>
+		<label for="table" class="label">Table: <span class="required">(required)</span></label>
 		<input type="text" name="table" id="table" class="input">
 
-		<label for="column" class="label">Column: (required)</label>
+		<label for="column" class="label">Column: <span class="required">(required)</span></label>
 		<input type="text" name="column" id="column" class="input">
 
-		<label for="what" class="label">What to replace: (required)</label>
+		<label for="what" class="label">What to replace: <span class="required">(required)</span></label>
 		<input type="text" name="what" id="what" class="input">
 
 		<label for="with" class="label">Replace with:</label>
 		<input type="text" name="with" id="with" class="input">
 
 		<button type="button" id="button" class="button">Submit</button>
-
-		<h2 id="result" class="result">Here!</h2>
-		<label for="snipped" id="label-output" class="label label-output">Your
-			SQL command
-			snipped:</label>
-		<output id="snipped" class="output"></output>
 	</form>
+
+	<h2 id="result" class="result">Here!</h2>
+
+	<label for="snipped" id="label-output" class="label label-output">Your
+		SQL command
+		snipped:</label>
+
+	<output id="snipped" class="output"></output>
+
+	<button id="copy" class="copy button" data-clipboard-target="#snipped">Copy to
+		clipboard
+	</button>
+
+	<p id="credits" class="credits">PS: Credits to Zeno Rocha for his marvelous
+		<a href="https://clipboardjs.com/" class="credits-link">clipboard.js</a>
+		&#9829;
+	</p>
+
+	<a name="bottom"></a>
 </div>
+<script src="./js/clipboard.min.js"></script>
+<script>
+	// Instantiate clipboard.js
+	new Clipboard('.copy');
+</script>
 </body>
 </html>
