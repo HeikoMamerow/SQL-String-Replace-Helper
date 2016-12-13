@@ -10,4 +10,4 @@ WHERE [Column] LIKE '%[What to replace]%'
 ```
 
 ## Why?
-I wrote it, because i allways stuck with it... ;-)
+Because i allways stuck with it... ;-)
