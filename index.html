@@ -103,7 +103,6 @@
 
 				document.getElementById("result").style.display = "none";
 				document.getElementById("label-output").style.display = "none";
-				document.getElementById("snipped").style.display = "block";
 				document.getElementById("snipped").style.color = "red";
 				document.getElementById("copy").style.display = "none";
 				document.getElementById("credits").style.display = "none";
@@ -116,11 +115,12 @@
 
 				document.getElementById("result").style.display = "block";
 				document.getElementById("label-output").style.display = "block";
-				document.getElementById("snipped").style.display = "block";
 				document.getElementById("snipped").style.color = "blue";
 				document.getElementById("copy").style.display = "block";
 				document.getElementById("credits").style.display = "block";
 			}
+
+			document.getElementById("snipped").style.display = "block";
 
 			document.getElementById("snipped").value = snipped;
 			window.scrollTo(0, document.body.scrollHeight);
