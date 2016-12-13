@@ -11,3 +11,9 @@ WHERE [Column] LIKE '%[What to replace]%'
 
 ## Why?
 Because i allways stuck with it... ;-)
+
+## Where?
+https://heikomamerow.github.io/SQL-String-Replace-Helper/
+
+## Next?
+More *Bling*
